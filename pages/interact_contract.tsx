@@ -44,9 +44,18 @@ const desc_question = [
   "Contracts heavily reliant on owner-exclusive functions centralize control and undermine decentralization. Such designs limit user participation and expose the contract to owner-driven decisions that may not align with the broader community's interests. Contracts should prioritize decentralized governance and transparency.",
 ];
 
+interface Match {
+  basic_info: string;
+  matches: string;
+}
+
+interface ApiResponse {
+  matches: Match[];
+}
+
 function ContractForm() {
   const [contractAddress, setContractAddress] = useState("");
-  const [matches, setMatches] = useState([]);
+  const [matches, setMatches] = useState<Match[]>([]);
 
   const [isFetching, setIsFetching] = useState(false);
 
@@ -187,25 +196,9 @@ function ContractForm() {
           <hr></hr>
           <hr></hr>
           <ul>
-            {matches ? (
-              matches.map((match, index) => (
-                <li key={index}>
-                  {matches.length > 1 && (
-                    <p className="bold-text"></p>
-                  )}
-                  <br></br>
-                  <p>{match}</p>
-                  <br></br>
-                  {matches.length > 1 && (
-                    <p className="italic-text"></p>
-                  )}
-                </li>
-              ))
-            ) : (
-              <li>
-                <p>Waiting for checking...</p>
-              </li>
-            )}
+          {matches.map((match, index) => (
+          <li key={index}>{match.basic_info} - {match.matches}</li>
+        ))}
           </ul>
         </div>
         {/* Scan Summary */}
