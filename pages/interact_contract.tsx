@@ -95,11 +95,11 @@ function ContractForm() {
       );
       const data = response.data;
 
-      // Check if data.matches is an array before using map
-      if (Array.isArray(data.matches)) {
-        setMatches(data.matches);
+      // Check if data.matches_result exists and is an array
+      if (Array.isArray(data.matches_result)) {
+        setMatches(data.matches_result);
       } else {
-        console.error("Data.matches is not an array:", data.matches);
+        console.error("Data.matches_result is not an array:", data.matches_result);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
