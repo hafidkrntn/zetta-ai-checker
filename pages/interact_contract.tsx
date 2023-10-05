@@ -57,6 +57,23 @@ function ContractForm() {
   const [contractAddress, setContractAddress] = useState("");
   const [matches, setMatches] = useState<Match[]>([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "https://zettahosted.pythonanywhere.com/api/contract/matches"
+      );
+      const data = response.data;
+      console.log(data);
+      setMatches(data.matches);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const [isFetching, setIsFetching] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -64,15 +81,18 @@ function ContractForm() {
 
     try {
       setIsFetching(true);
-      const response = await fetch("https://zettahosted.pythonanywhere.com/api/contract", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ contract_address: contractAddress }),
-      });
+      const response = await fetch(
+        "https://zettahosted.pythonanywhere.com/api/contract",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ contract_address: contractAddress }),
+        }
+      );
       if (response.ok) {
-        console.log(response, "halo")
+        console.log(response, "halo");
         fetchData();
       } else {
         console.log("Failed to fetch contract_name");
@@ -87,23 +107,6 @@ function ContractForm() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setContractAddress(e.target.value);
   };
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://zettahosted.pythonanywhere.com/api/contract/matches"
-      );
-      const data = response.data;
-      console.log(data)
-      setMatches(data.matches);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div>
@@ -171,34 +174,39 @@ function ContractForm() {
         <div className="scan">
           <h2>Scan Summary</h2>
           <div>
-
-          <div className="summary">
-            <div className="scanner">
-              <p>testingggg</p>
-              <p>testingg</p>
+            <div className="summary">
+              <div className="scanner">
+                <p>testingggg</p>
+                <p>testingg</p>
+              </div>
+              <div className="scanner">
+                <p>testingggg</p>
+                <p>testingg</p>
+              </div>
             </div>
-            <div className="scanner">
-              <p>testingggg</p>
-              <p>testingg</p>
+            <div className="summary">
+              <div className="scanner">
+                <p>testingggg</p>
+                <p>testingg</p>
+              </div>
+              <div className="scanner">
+                <p>testingggg</p>
+                <p>testingg</p>
+              </div>
             </div>
-          </div>
-          <div className="summary">
-            <div className="scanner">
-              <p>testingggg</p>
-              <p>testingg</p>
-            </div>
-            <div className="scanner">
-              <p>testingggg</p>
-              <p>testingg</p>
-            </div>
-          </div>
           </div>
           <hr></hr>
           <hr></hr>
           <ul>
-          {matches.map((match, index) => (
-          <li key={index}>{match.basic_info} - {match.matches}</li>
-        ))}
+            {Array.isArray(matches) ? (
+              matches.map((match, index) => (
+                <li key={index}>
+                  {match.basic_info} - {match.matches}
+                </li>
+              ))
+            ) : (
+              <p>No matches found</p>
+            )}
           </ul>
         </div>
         {/* Scan Summary */}
