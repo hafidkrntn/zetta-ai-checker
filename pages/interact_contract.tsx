@@ -55,7 +55,7 @@ function ContractForm() {
 
     try {
       setIsFetching(true);
-      const response = await fetch("https://Zettasoft.pythonanywhere.com/api/contract", {
+      const response = await fetch("https://zettahosted.pythonanywhere.com/api/contract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ function ContractForm() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://zettasoft.pythonanywhere.com/api/contract/matches"
+        "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
       console.log(data, "halo data dsini")
