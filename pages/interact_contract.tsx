@@ -94,12 +94,13 @@ function ContractForm() {
         "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
+      console.log(data)
 
       // Check if data.matches_result exists and is an array
-      if (Array.isArray(data.matches_result)) {
+      if (data.matches_result && Array.isArray(data.matches_result)) {
         setMatches(data.matches_result);
       } else {
-        console.error("Data.matches_result is not an array:", data.matches_result);
+        console.error("Data.matches_result is not an array or does not exist.");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
