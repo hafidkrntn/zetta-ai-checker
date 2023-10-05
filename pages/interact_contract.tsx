@@ -55,7 +55,7 @@ interface ApiResponse {
 
 function ContractForm() {
   const [contractAddress, setContractAddress] = useState("");
-  const [matches, setMatches] = useState<Match[]>();
+  const [matches, setMatches] = useState<Match[]>([]);
 
   const [isFetching, setIsFetching] = useState(false);
 
@@ -95,13 +95,7 @@ function ContractForm() {
       );
       const data = response.data;
       console.log(data)
-
-      // Check if data.matches_result exists and is an array
-      if (data.matches_result && Array.isArray(data.matches_result)) {
-        setMatches(data.matches_result);
-      } else {
-        console.error("Data.matches_result is not an array or does not exist.");
-      }
+      setMatches(data.matches);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
