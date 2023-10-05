@@ -55,7 +55,7 @@ function ContractForm() {
 
     try {
       setIsFetching(true);
-      const response = await fetch("http://Zettasoft.pythonanywhere.com/api/contract", {
+      const response = await fetch("https://Zettasoft.pythonanywhere.com/api/contract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,6 +63,7 @@ function ContractForm() {
         body: JSON.stringify({ contract_address: contractAddress }),
       });
       if (response.ok) {
+        console.log(response, "halo")
         fetchData();
       } else {
         console.log("Failed to fetch contract_name");
@@ -81,9 +82,10 @@ function ContractForm() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://Zettasoft.pythonanywhere.com/api/contract/matches"
+        "http://zettasoft.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
+      console.log(data, "halo data dsini")
       setMatches(data.matches);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -182,6 +184,8 @@ function ContractForm() {
             </div>
           </div>
           </div>
+          <hr></hr>
+          <hr></hr>
           <ul>
             {matches ? (
               matches.map((match, index) => (
