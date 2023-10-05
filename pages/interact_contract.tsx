@@ -191,13 +191,13 @@ function ContractForm() {
               matches.map((match, index) => (
                 <li key={index}>
                   {matches.length > 1 && (
-                    <p className="bold-text">{questions[index]}</p>
+                    <p className="bold-text"></p>
                   )}
                   <br></br>
                   <p>{match}</p>
                   <br></br>
                   {matches.length > 1 && (
-                    <p className="italic-text">{desc_question[index]}</p>
+                    <p className="italic-text"></p>
                   )}
                 </li>
               ))
