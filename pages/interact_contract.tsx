@@ -82,7 +82,7 @@ function ContractForm() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://zettasoft.pythonanywhere.com/api/contract/matches"
+        "https://zettasoft.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
       console.log(data, "halo data dsini")
