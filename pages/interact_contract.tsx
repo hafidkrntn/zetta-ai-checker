@@ -94,8 +94,13 @@ function ContractForm() {
         "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
-      console.log(data, "halo data dsini")
-      setMatches(data.matches);
+
+      // Check if data.matches is an array before using map
+      if (Array.isArray(data.matches)) {
+        setMatches(data.matches);
+      } else {
+        console.error("Data.matches is not an array:", data.matches);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
