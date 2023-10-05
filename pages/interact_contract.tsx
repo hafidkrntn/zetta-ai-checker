@@ -55,7 +55,7 @@ interface ApiResponse {
 
 function ContractForm() {
   const [contractAddress, setContractAddress] = useState("");
-  const [matches, setMatches] = useState<Match[]>([]);
+  const [matches, setMatches] = useState<Match[]>();
 
   const [isFetching, setIsFetching] = useState(false);
 
