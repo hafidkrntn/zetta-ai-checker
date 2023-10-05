@@ -55,7 +55,7 @@ interface ApiResponse {
 
 function ContractForm() {
   const [contractAddress, setContractAddress] = useState("");
-  const [matches, setMatches] = useState<Match[]>([]);
+  const [matches, setMatches] = useState<Match | null>(null);
 
   const fetchData = async () => {
     try {
@@ -64,7 +64,7 @@ function ContractForm() {
       );
       const data = response.data;
       console.log(data);
-      setMatches(data.matches);
+      setMatches(data); // Assuming the API response directly contains the data you want to display
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -197,13 +197,15 @@ function ContractForm() {
           </div>
           <hr></hr>
           <hr></hr>
-          <ul>
-            {matches.map((match, index) => (
-              <li key={index}>
-                {match.basic_info} - {match.matches}
+          {matches ? (
+            <ul>
+              <li>
+                {matches.basic_info} - {matches.matches}
               </li>
-            ))}
-          </ul>
+            </ul>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
         {/* Scan Summary */}
       </div>
