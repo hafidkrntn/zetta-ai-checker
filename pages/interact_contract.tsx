@@ -198,15 +198,11 @@ function ContractForm() {
           <hr></hr>
           <hr></hr>
           <ul>
-            {Array.isArray(matches) ? (
-              matches.map((match, index) => (
-                <li key={index}>
-                  {match.basic_info} - {match.matches}
-                </li>
-              ))
-            ) : (
-              <p>No matches found</p>
-            )}
+            {matches.map((match, index) => (
+              <li key={index}>
+                {match.basic_info} - {match.matches}
+              </li>
+            ))}
           </ul>
         </div>
         {/* Scan Summary */}
