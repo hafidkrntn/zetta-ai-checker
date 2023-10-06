@@ -93,6 +93,7 @@ function ContractForm() {
         body: JSON.stringify({ contract_address: contractAddress }),
       });
       if (response.ok) {
+        console.log(response, "halo dsiini response")
         fetchData();
       } else {
         console.log("Failed to fetch contract_name");
