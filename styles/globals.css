@@ -195,6 +195,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  flex-wrap: wrap;
   width: 83.33333%;
   justify-content: space-between;
   align-items: center; 
@@ -204,11 +205,17 @@ body {
   padding-top: 20px;
 }
 
+
 @media (max-width: 414px) {
   .sponsor {
-    display: flex;
-    flex-direction: column;
+    display: none;
+    /* flex-direction: column; */
   }
+
+  .support-header {
+    display:none;
+  }
+
 
   .support {
     padding-top: 40px;
