@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from "axios";
-import Logo from "../public/traix.png";
 
 const questions = [
   "Does the Contract have a hidden owner?",
@@ -42,6 +41,24 @@ const desc_question = [
   "Contracts that allow unchecked fee establishment or modification can lead to exploitative fee structures. High or arbitrary fees can deter users and hinder adoption. Transparent and reasonable fee policies are essential for user trust.",
   "Hardcoding addresses in a contract can create vulnerabilities and hinder contract flexibility. Contracts should avoid fixed addresses whenever possible, as these can become obsolete or expose the contract to external risks.",
   "Contracts heavily reliant on owner-exclusive functions centralize control and undermine decentralization. Such designs limit user participation and expose the contract to owner-driven decisions that may not align with the broader community's interests. Contracts should prioritize decentralized governance and transparency.",
+];
+
+const scan_summary = [
+  {
+    question: "Does the Contract have a hidden owner?",
+    description:
+      "A contract with a concealed owner can be highly suspicious and pose significant risks...",
+  },
+  {
+    question: "Does the contract have admin privileges?",
+    description:
+      "Contracts equipped with extensive admin privileges can centralize power...",
+  },
+  {
+    question: "Does the Contract look like a honeypot?",
+    description:
+      "Honeypot contracts are malicious by design, aiming to deceive and defraud users...",
+  },
 ];
 
 interface Match {
@@ -110,6 +127,9 @@ function ContractForm() {
 
   return (
     <div>
+      <head>
+        <title>TRAIX</title>
+      </head>
       {/* Navigasi */}
       <div className="navbar">
         <div className="content-navbar">
@@ -122,7 +142,10 @@ function ContractForm() {
       {/* Header */}
       <div className="header">
         <div className="content-header">
-          <h2 className="judul bold-text"> Personal Contracts Auditor </h2>
+          <h2 className="judul-header bold-text">
+            {" "}
+            Personal Contracts Auditor{" "}
+          </h2>
           <h3 className="text-header">
             {" "}
             "Offers a quick, informative smart contract scan to enhance your
@@ -130,12 +153,12 @@ function ContractForm() {
           </h3>
           <form onSubmit={handleSubmit}>
             <div className="header-button">
-              <button className="button-connect jarak-button" type="submit">
+              <button className="button-header jarak-button" type="submit">
                 Quick Scan
               </button>
               <input
                 type="text"
-                placeholder="Contract Address"
+                placeholder="Scan here.."
                 value={contractAddress}
                 onChange={handleInputChange}
                 className="input-scan"
@@ -157,9 +180,9 @@ function ContractForm() {
         <div className="support-by">
           <h1>Support By</h1>
           <div className="sponsor">
-            <h1>gambar 1</h1>
-            <h1>gambar 2</h1>
-            <h1>gambar 3</h1>
+            <img alt="logo1" src="/public/assets/image26.png" />
+            <img alt="logo2" src="/public/assets/image28.png" />
+            <img alt="logo3" src="/public/assets/image29.png" />
           </div>
           <p>
             Disclaimer: The output should not be taken as an indication or
@@ -173,30 +196,24 @@ function ContractForm() {
         {/* Scan Summary */}
         <div className="scan">
           <h2>Scan Summary</h2>
-          <div>
+          <div className="separator">
             <div className="summary">
-              <div className="scanner">
-                <p>testingggg</p>
-                <p>testingg</p>
-              </div>
-              <div className="scanner">
-                <p>testingggg</p>
-                <p>testingg</p>
-              </div>
+              {scan_summary.map((item, index) => (
+                <div className="scanner" key={index}>
+                  <p><span className="nomor">{(index + 1).toString().padStart(2, '0')}</span>{item.question}</p>
+                </div>
+              ))}
             </div>
             <div className="summary">
-              <div className="scanner">
-                <p>testingggg</p>
-                <p>testingg</p>
-              </div>
-              <div className="scanner">
-                <p>testingggg</p>
-                <p>testingg</p>
-              </div>
+            {scan_summary.map((item, index) => (
+                <div className="scanner" key={index}>
+                  <p>{item.description}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <hr></hr>
-          <hr></hr>
+          <hr className="bold-text"></hr>
+          <hr className="bold-text"></hr>
           {matches ? (
             <ul>
               <li>
