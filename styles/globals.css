@@ -26,11 +26,6 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
-img {
-  width: 50%;
-  height: auto;
-}
-
 /* Navigasi */
 .navbar {
   position: relative;
@@ -205,6 +200,8 @@ img {
   align-items: center; 
   display: flex;
   gap: 8px;
+  padding-bottom: 40px;
+  padding-top: 20px;
 }
 
 @media (max-width: 414px) {

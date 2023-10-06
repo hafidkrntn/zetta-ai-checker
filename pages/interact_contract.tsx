@@ -180,9 +180,9 @@ function ContractForm() {
         <div className="support-by">
           <h1>Support By</h1>
           <div className="sponsor">
-            <img alt="logo1" src="/public/assets/image26.png" />
-            <img alt="logo2" src="/public/assets/image28.png" />
-            <img alt="logo3" src="/public/assets/image29.png" />
+            <img alt="logo1" src="/assets/image26.png" />
+            <img alt="logo2" src="/assets/image28.png" />
+            <img alt="logo3" src="/assets/image29.png" />
           </div>
           <p>
             Disclaimer: The output should not be taken as an indication or
