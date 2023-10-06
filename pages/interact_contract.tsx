@@ -71,7 +71,8 @@ interface ApiResponse {
 }
 
 function ContractForm() {
-  const [contractAddress, setContractAddress] = useState("");
+  const [contractAddress, setContractAddress] = useState<string>('');
+  const [data, setData] = useState<any>(null);
   const [matches, setMatches] = useState<Match | null>(null);
 
   const fetchData = async () => {
@@ -93,11 +94,10 @@ function ContractForm() {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      setIsFetching(true);
       const response = await fetch(
         "https://zettahosted.pythonanywhere.com/api/contract",
         {
@@ -109,15 +109,14 @@ function ContractForm() {
         }
       );
       if (response.ok) {
-        console.log(response, "halo");
-        fetchData();
+        const responseData = await response.json();
+        console.log(responseData, "halo datadisini ya")
+        setData(responseData);
       } else {
         console.log("Failed to fetch contract_name");
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsFetching(false);
     }
   };
 
@@ -212,17 +211,6 @@ function ContractForm() {
               ))}
             </div>
           </div>
-          <hr className="bold-text"></hr>
-          <hr className="bold-text"></hr>
-          {matches ? (
-            <ul>
-              <li>
-                {matches.basic_info} - {matches.matches}
-              </li>
-            </ul>
-          ) : (
-            <p>Loading...</p>
-          )}
         </div>
         {/* Scan Summary */}
       </div>
