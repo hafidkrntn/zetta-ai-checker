@@ -109,6 +109,7 @@ function ContractForm() {
         }
       );
       if (response.ok) {
+        console.log(response, "response dsini")
         const responseData = await response.json();
         console.log(responseData, "halo datadisini ya")
         setData(responseData);
