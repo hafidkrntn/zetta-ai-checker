@@ -113,6 +113,7 @@ function ContractForm() {
         "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
+      console.log(data, "coba data dsini")
       setMatches(data.matches);
     } catch (error) {
       console.error("Error fetching data:", error);
