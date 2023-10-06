@@ -75,14 +75,46 @@ function ContractForm() {
   const [data, setData] = useState<any>(null);
   const [matches, setMatches] = useState<Match | null>(null);
 
+  const [contractAddress, setContractAddress] = useState("");
+  const [matches, setMatches] = useState([]);
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      setIsFetching(true);
+      const response = await fetch("https://zettahosted.pythonanywhere.com/api/contract", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ contract_address: contractAddress }),
+      });
+      if (response.ok) {
+        fetchData();
+      } else {
+        console.log("Failed to fetch contract_name");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setContractAddress(e.target.value);
+  };
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
         "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
-      console.log(data);
-      setMatches(data); // Assuming the API response directly contains the data you want to display
+      setMatches(data.matches);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -91,39 +123,6 @@ function ContractForm() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const [isFetching, setIsFetching] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(
-        "https://zettahosted.pythonanywhere.com/api/contract",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ contract_address: contractAddress }),
-        }
-      );
-      if (response.ok) {
-        console.log(response, "response dsini")
-        const responseData = await response.json();
-        console.log(responseData, "halo datadisini ya")
-        setData(responseData);
-      } else {
-        console.log("Failed to fetch contract_name");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setContractAddress(e.target.value);
-  };
 
   return (
     <div>
