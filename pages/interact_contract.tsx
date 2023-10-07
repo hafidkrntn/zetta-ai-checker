@@ -195,51 +195,35 @@ function ContractForm() {
           {/* End Support By */}
         </div>
 
-        {/* <ul>
-        {matches ? (
-          matches.map((match, index) => (
-            <li key={index}>
-              {matches.length > 1 && <p className="bold-text">{questions[index]}</p>}<br></br>
-              <p>{match}</p><br></br>
-              {matches.length > 1 && <p className="italic-text">{desc_question[index]}</p>}
-            </li>
-          ))
-        ) : (
-          <li>
-            <p>Waiting for checking...</p>
-          </li>
-        )}
-        </ul> */}
-
         {/* Scan Summary */}
         <div className="scan">
           <h2>Scan Summary</h2>
           <div className="separator">
             <div className="summary">
-              {Array.isArray(matches) ? (
-                matches.map((item, index) => (
+              {matches ? (
+                questions.map((item, index) => (
                   <div className="scanner" key={index}>
                     <p>
                       <span className="nomor">
                         {(index + 1).toString().padStart(2, "0")}
                       </span>
-                      {questions[index]}
+                      {item}
                     </p>
                   </div>
                 ))
               ) : (
-                <p>matches is not an array</p>
+                <p>404 Not Found</p>
               )}
             </div>
             <div className="summary">
-              {Array.isArray(matches) ? (
-                matches.map((item, index) => (
+              {matches ? (
+                desc_question.map((item, index) => (
                   <div className="scanner" key={index}>
-                    <p>{desc_question[index]}</p>
+                    <p>{item}</p>
                   </div>
                 ))
               ) : (
-                <p>matches is not an array</p>
+                <p>404 Not Found</p>
               )}
             </div>
           </div>
