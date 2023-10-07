@@ -73,6 +73,7 @@ interface ApiResponse {
 function ContractForm() {
   const [data, setData] = useState<any>(null);
   const [matches, setMatches] = useState([]);
+  const [responseData, setResponseData] = useState(null);
 
   const [contractAddress, setContractAddress] = useState("");
 
@@ -94,7 +95,8 @@ function ContractForm() {
         }
       );
       if (response.ok) {
-        console.log(response, "halo dsiini response");
+        const responseData = await response.json();
+        setResponseData(responseData);
         fetchData();
       } else {
         console.log("Failed to fetch contract_name");
@@ -129,9 +131,9 @@ function ContractForm() {
 
   return (
     <div>
-      <head>
+      {/* <head>
         <title>TRAIX</title>
-      </head>
+      </head> */}
       {/* Navigasi */}
       <div className="navbar">
         <div className="content-navbar">
@@ -200,31 +202,25 @@ function ContractForm() {
           <h2>Scan Summary</h2>
           <div className="separator">
             <div className="summary">
-              {matches ? (
-                questions.map((item, index) => (
-                  <div className="scanner" key={index}>
-                    <p>
-                      <span className="nomor">
-                        {(index + 1).toString().padStart(2, "0")}
-                      </span>
-                      {item}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p>404 Not Found</p>
-              )}
-            </div>
-            <div className="summary">
-              {matches ? (
-                desc_question.map((item, index) => (
-                  <div className="scanner" key={index}>
-                    <p>{item}</p>
-                  </div>
-                ))
-              ) : (
-                <p>404 Not Found</p>
-              )}
+              <table>
+                <tbody>
+                  {responseData ? (
+                    questions.map((item, index) => (
+                      <tr key={index}>
+                        <td className="scanner-question">
+                          <span className="nomor">
+                            {(index + 1).toString().padStart(2, "0")}
+                          </span>
+                          {item}
+                        </td>
+                        <td className="scanner">{desc_question[index]}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <p></p>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
