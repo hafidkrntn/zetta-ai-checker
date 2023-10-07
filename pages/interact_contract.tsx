@@ -232,11 +232,15 @@ function ContractForm() {
               )}
             </div>
             <div className="summary">
-              {matches.map((item, index) => (
-                <div className="scanner" key={index}>
-                  <p>{desc_question[index]}</p>
-                </div>
-              ))}
+              {Array.isArray(matches) ? (
+                matches.map((item, index) => (
+                  <div className="scanner" key={index}>
+                    <p>{desc_question[index]}</p>
+                  </div>
+                ))
+              ) : (
+                <p>matches is not an array</p>
+              )}
             </div>
           </div>
         </div>
