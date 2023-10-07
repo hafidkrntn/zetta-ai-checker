@@ -19,7 +19,7 @@ const questions = [
   "Does the contract have a cooldown feature?",
   "Can the contract establish or update Fees?",
   "Is the contract hardcoding addresses?",
-  "Does the contract use many functions that can only be called by the owner?"
+  "Does the contract use many functions that can only be called by the owner?",
 ];
 
 const desc_question = [
@@ -41,7 +41,7 @@ const desc_question = [
   "Contracts that allow unchecked fee establishment or modification can lead to exploitative fee structures. High or arbitrary fees can deter users and hinder adoption. Transparent and reasonable fee policies are essential for user trust.",
   "Hardcoding addresses in a contract can create vulnerabilities and hinder contract flexibility. Contracts should avoid fixed addresses whenever possible, as these can become obsolete or expose the contract to external risks.",
   "Contracts heavily reliant on owner-exclusive functions centralize control and undermine decentralization. Such designs limit user participation and expose the contract to owner-driven decisions that may not align with the broader community's interests. Contracts should prioritize decentralized governance and transparency.",
-]
+];
 
 const scan_summary = [
   {
@@ -83,15 +83,18 @@ function ContractForm() {
 
     try {
       setIsFetching(true);
-      const response = await fetch("https://zettahosted.pythonanywhere.com/api/contract", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ contract_address: contractAddress }),
-      });
+      const response = await fetch(
+        "https://zettahosted.pythonanywhere.com/api/contract",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ contract_address: contractAddress }),
+        }
+      );
       if (response.ok) {
-        console.log(response, "halo dsiini response")
+        console.log(response, "halo dsiini response");
         fetchData();
       } else {
         console.log("Failed to fetch contract_name");
@@ -113,7 +116,7 @@ function ContractForm() {
         "https://zettahosted.pythonanywhere.com/api/contract/matches"
       );
       const data = response.data;
-      console.log(data, "coba data dsini")
+      console.log(data, "coba data dsini");
       setMatches(data.matches);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -213,14 +216,23 @@ function ContractForm() {
           <h2>Scan Summary</h2>
           <div className="separator">
             <div className="summary">
-              {matches.map((item, index) => (
-                <div className="scanner" key={index}>
-                  <p><span className="nomor">{(index + 1).toString().padStart(2, '0')}</span>{questions[index]}</p>
-                </div>
-              ))}
+              {Array.isArray(matches) ? (
+                matches.map((item, index) => (
+                  <div className="scanner" key={index}>
+                    <p>
+                      <span className="nomor">
+                        {(index + 1).toString().padStart(2, "0")}
+                      </span>
+                      {questions[index]}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p>matches is not an array</p>
+              )}
             </div>
             <div className="summary">
-            {matches.map((item, index) => (
+              {matches.map((item, index) => (
                 <div className="scanner" key={index}>
                   <p>{desc_question[index]}</p>
                 </div>
