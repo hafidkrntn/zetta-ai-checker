@@ -19,7 +19,7 @@ const questions = [
   "Does the contract have a cooldown feature?",
   "Can the contract establish or update Fees?",
   "Is the contract hardcoding addresses?",
-  "Does the contract use many functions that can only be called by the owner?",
+  "Does the contract use many functions that can only be called by the owner?"
 ];
 
 const desc_question = [
@@ -41,7 +41,7 @@ const desc_question = [
   "Contracts that allow unchecked fee establishment or modification can lead to exploitative fee structures. High or arbitrary fees can deter users and hinder adoption. Transparent and reasonable fee policies are essential for user trust.",
   "Hardcoding addresses in a contract can create vulnerabilities and hinder contract flexibility. Contracts should avoid fixed addresses whenever possible, as these can become obsolete or expose the contract to external risks.",
   "Contracts heavily reliant on owner-exclusive functions centralize control and undermine decentralization. Such designs limit user participation and expose the contract to owner-driven decisions that may not align with the broader community's interests. Contracts should prioritize decentralized governance and transparency.",
-];
+]
 
 const scan_summary = [
   {
@@ -72,7 +72,7 @@ interface ApiResponse {
 
 function ContractForm() {
   const [data, setData] = useState<any>(null);
-  const [matches, setMatches] = useState<Match | null>(null);
+  const [matches, setMatches] = useState([]);
 
   const [contractAddress, setContractAddress] = useState("");
 
@@ -192,21 +192,37 @@ function ContractForm() {
           {/* End Support By */}
         </div>
 
+        {/* <ul>
+        {matches ? (
+          matches.map((match, index) => (
+            <li key={index}>
+              {matches.length > 1 && <p className="bold-text">{questions[index]}</p>}<br></br>
+              <p>{match}</p><br></br>
+              {matches.length > 1 && <p className="italic-text">{desc_question[index]}</p>}
+            </li>
+          ))
+        ) : (
+          <li>
+            <p>Waiting for checking...</p>
+          </li>
+        )}
+        </ul> */}
+
         {/* Scan Summary */}
         <div className="scan">
           <h2>Scan Summary</h2>
           <div className="separator">
             <div className="summary">
-              {scan_summary.map((item, index) => (
+              {matches.map((item, index) => (
                 <div className="scanner" key={index}>
-                  <p><span className="nomor">{(index + 1).toString().padStart(2, '0')}</span>{item.question}</p>
+                  <p><span className="nomor">{(index + 1).toString().padStart(2, '0')}</span>{questions[index]}</p>
                 </div>
               ))}
             </div>
             <div className="summary">
-            {scan_summary.map((item, index) => (
+            {matches.map((item, index) => (
                 <div className="scanner" key={index}>
-                  <p>{item.description}</p>
+                  <p>{desc_question[index]}</p>
                 </div>
               ))}
             </div>
